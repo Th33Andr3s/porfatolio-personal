@@ -200,3 +200,9 @@ Estimación: 3–5 h. Riesgo: bajo.
 | 2026-10-08 | 3.2 tilt opt-in | pendiente | `js/tilt.js`, `js/main.js`, `index.html`. Solo 13 tarjetas `.tilt` se inclinan y se limpian al salir. |
 | 2026-10-08 | 3.3 tooling/CI | pendiente | Archivos creados; `check-site.mjs` ejecutado (8/8 OK). `html-validate`, Actions y Lighthouse sin ejecutar. YAML sin validar (sin PyYAML). |
 | 2026-10-08 | 3.4 CSP y fuentes | pendiente | `<meta>` CSP con hash del script en línea y solo orígenes propios; fuentes autoalojadas (~100 KB en 3 archivos), 0 peticiones a terceros, 0 violaciones. |
+
+## Cambios posteriores al plan
+
+| Fecha | Cambio | Detalle |
+|---|---|---|
+| 2026-10-08 | Sección "Herramientas web" en Proyectos | Seis tarjetas con los proyectos de `C:\Proyectos Andres\Proyectos Personales\projects` (repo `Th33Andr3s/projects`, publicados en `th33andr3s.github.io/projects/`): Calculadora financiera, de materiales y de medidas, Generador de contraseñas, Calendario y Libro de vida. Miniaturas capturadas de los sitios publicados (`assets/img/projects/`, 5 JPEG de unos 30 KB). `Libro de vida` es privado: sin enlace a la app, solo a su código, con ilustración propia y etiqueta "Privado". Textos ES/EN, enlace general al portal. Etiquetas de tecnología verificadas en el código (Three.js en todos, `localStorage`, Web Crypto en el generador, Lottie y Supabase en el libro). Verificado: 0 errores de consola, imágenes cargan, enlaces al fondo alineados, móvil sin scroll horizontal, inglés completo, `check-site.mjs` 9/9. |

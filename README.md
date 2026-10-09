@@ -32,6 +32,7 @@ js/
 assets/
   cv.pdf  og-image.png  apple-touch-icon.png
   fonts/                  fuentes WOFF2 y sus licencias OFL
+  img/projects/           miniaturas 800x500 de las herramientas web
 scripts/
   check-site.mjs          comprobaciones estáticas (sin dependencias)
 .github/workflows/ci.yml  validación y Lighthouse en cada push / PR
@@ -66,6 +67,7 @@ Con las herramientas de desarrollo instaladas (`npm install`), `npm run check` a
 - **Texto bilingüe:** escribe siempre los dos `<span data-i18n-es>` y `<span data-i18n-en>`. Para un `aria-label` traducible usa `data-aria-es` y `data-aria-en` junto al `aria-label` inicial.
 - **Estilos:** sin `style=""` en línea (el CSP los bloquea). Usa las clases de `css/components.css`.
 - **Inclinación 3D:** añade la clase `tilt` a la tarjeta que deba inclinarse.
+- **Herramientas web** (sección Proyectos): cada tarjeta enlaza a su demo en `th33andr3s.github.io/projects/` y a su carpeta en el repositorio `Th33Andr3s/projects`. Las miniaturas de `assets/img/projects/` son capturas 800×500 (16:10) de cada sitio publicado; si una aplicación cambia mucho, vuelve a capturarla con el mismo tamaño. `Libro de vida` es privado (login con Supabase), por eso no enlaza a la aplicación y usa una ilustración en lugar de una captura.
 - **Script en línea de `<head>`** (marca `.js` y fija el tema antes del primer pintado): está permitido por hash en el `<meta>` de Content-Security-Policy. Si lo modificas, ejecuta `node scripts/check-site.mjs --print-hash` y actualiza el hash en `script-src`; de lo contrario el navegador lo bloqueará.
 - **Nuevos orígenes externos** (analítica, etc.): añádelos al `<meta http-equiv="Content-Security-Policy">`. Hoy la política solo permite recursos propios.
 - **Fuentes:** para añadir caracteres fuera del subconjunto latino (p. ej. cirílico) hay que descargar el subconjunto correspondiente y declararlo en `css/fonts.css`. La flecha `→` no está en ninguna de las tres y usa la fuente del sistema.

@@ -249,6 +249,19 @@
   position: relative;
 }
 
+/* Tarjetas de herramientas web: miniatura a sangre en la parte superior */
+.project-visual img { width: 100%; height: 100%; object-fit: cover; }
+.tool-card .project-visual {
+  margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-5);
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+/* enlaces siempre al fondo de la tarjeta, aunque el texto sea más corto que el de las vecinas */
+.tool-card { display: flex; flex-direction: column; }
+.tool-card .project-links { margin-top: auto; padding-top: var(--space-4); }
+.tools-more { justify-content: center; margin-top: var(--space-6); }
+
 .stack-list {
   display: flex;
   flex-wrap: wrap;
