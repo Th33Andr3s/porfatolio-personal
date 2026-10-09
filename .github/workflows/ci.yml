@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Comprobaciones estáticas y HTML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # Sin dependencias: ids, anclas, recursos locales, pares ES/EN, estilos en línea y hash del CSP.
+      - name: Comprobaciones del sitio
+        run: node scripts/check-site.mjs
+      - name: Instalar herramientas de desarrollo
+        run: npm install --no-audit --no-fund
+      - name: Validar HTML
+        run: npx html-validate index.html
+
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Servir el sitio
+        run: |
+          nohup python3 -m http.server 5173 >/dev/null 2>&1 &
+          sleep 2
+          curl --fail --silent --output /dev/null http://localhost:5173/
+      - uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://localhost:5173/
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: false

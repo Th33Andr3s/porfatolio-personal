@@ -18,7 +18,7 @@
 
   --text-primary: #eef1fb;
   --text-secondary: #9aa4c4;
-  --text-muted: #6a7392;
+  --text-muted: #808aab;
 
   --primary: #4f7cff;
   --primary-2: #22d3ee;
@@ -32,6 +32,8 @@
   --warning: #fbbf24;
 
   --gradient-brand: linear-gradient(135deg, var(--primary) 0%, var(--accent) 55%, var(--accent-2) 100%);
+  /* Para elementos con texto blanco encima (botón primario, logo, idioma activo): contraste >= 4.6:1 */
+  --gradient-action: linear-gradient(135deg, #3b5fe0 0%, #9333ea 55%, #db2777 100%);
   --gradient-radial: radial-gradient(circle at 50% 0%, rgba(79, 124, 255, 0.18), transparent 60%);
   --glow-primary: 0 0 40px rgba(79, 124, 255, 0.35);
   --glow-accent: 0 0 40px rgba(168, 85, 247, 0.3);
@@ -96,6 +98,7 @@
 
   --container: 1180px;
   --header-h: 76px;
+  --section-pad: var(--space-9); /* padding vertical de cada <section> */
 }
 
 :root[data-theme='light'] {
@@ -106,16 +109,17 @@
 
   --text-primary: #10142a;
   --text-secondary: #454e6e;
-  --text-muted: #767f9e;
+  --text-muted: #5f6885;
 
   --primary: #3457e6;
-  --primary-2: #0891b2;
+  --primary-2: #0e7490;
   --accent: #8b2fd6;
   --accent-2: #cf1c72;
 
   --border: #e2e5f2;
   --border-strong: #c9cee4;
 
+  --gradient-action: var(--gradient-brand); /* ya cumple >= 5.1:1 con texto blanco */
   --gradient-radial: radial-gradient(circle at 50% 0%, rgba(52, 87, 230, 0.10), transparent 60%);
   --glow-primary: 0 0 40px rgba(52, 87, 230, 0.18);
   --glow-accent: 0 0 40px rgba(139, 47, 214, 0.15);
@@ -125,6 +129,8 @@
   --shadow-lg: 0 24px 60px rgba(16, 20, 42, 0.12);
 }
 
+/* Complementa al bloque de animations.css: aqui se anulan las duraciones/retardos que usan tokens;
+   alli, las animaciones con duracion literal. */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --dur-instant: 0ms;

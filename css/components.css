@@ -23,7 +23,7 @@
 
 .btn-primary {
   color: var(--btn-fg);
-  background: var(--gradient-brand);
+  background: var(--gradient-action);
   background-size: 200% 200%;
   box-shadow: var(--glow-primary);
 }
@@ -59,6 +59,10 @@
 }
 .btn-icon:hover { transform: translateY(-2px) rotate(-6deg); border-color: var(--primary-2); }
 .btn-icon svg { width: 20px; height: 20px; stroke: var(--text-primary); transition: stroke var(--dur-base) var(--ease-out); }
+/* icono del tema segun data-theme (sin depender de JS para el primer pintado) */
+.btn-icon .icon-moon { display: none; }
+:root[data-theme='light'] .btn-icon .icon-sun { display: none; }
+:root[data-theme='light'] .btn-icon .icon-moon { display: block; }
 
 /* ---------- Nav ---------- */
 .site-header {
@@ -79,7 +83,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  /* el ancho y el gutter lateral vienen de .container */
 }
 
 .logo {
@@ -97,7 +101,7 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: var(--gradient-brand);
+  background: var(--gradient-action);
   color: #fff;
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -171,7 +175,7 @@
   transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
 }
 .lang-toggle button.is-active {
-  background: var(--gradient-brand);
+  background: var(--gradient-action);
   color: #fff;
 }
 
@@ -197,8 +201,9 @@
   border-radius: var(--radius-lg);
   padding: var(--space-6);
   transition: transform var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
-  will-change: transform;
 }
+/* capa de composicion solo mientras se inclina (tilt.js) */
+.tilt:hover { will-change: transform; }
 .card:hover {
   border-color: var(--border-strong);
   box-shadow: var(--shadow-md);
@@ -264,6 +269,11 @@
 }
 .project-links a:hover { border-color: currentColor; }
 
+/* h3 de tarjetas: mantienen la escala visual de h4 (la jerarquia semantica no salta niveles) */
+.domain-card h3,
+.timeline-item h3,
+.projects-grid.secondary h3 { font-size: var(--step-2); }
+
 /* ---------- Skill pills / domain grid ---------- */
 .domain-card {
   padding: var(--space-5);
@@ -277,26 +287,6 @@
   box-shadow: var(--glow-primary);
 }
 .domain-card .icon svg { stroke: #fff; width: 24px; height: 24px; }
-
-/* ---------- Timeline / now ---------- */
-.now-card {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-strong);
-  background: var(--bg-elevated);
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  width: fit-content;
-}
-.now-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--success);
-  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.18);
-  animation: pulse-glow 2.4s var(--ease-in-out) infinite;
-}
 
 /* ---------- Timeline ---------- */
 .timeline {
@@ -340,13 +330,15 @@
 /* ---------- Contact ---------- */
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--space-4);
 }
 .contact-card {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
+  /* relleno lateral reducido: el email (≈183 px) debe caber en una línea con 4 columnas */
+  padding-inline: var(--space-4);
   text-align: left;
 }
 .contact-card > div {
@@ -354,8 +346,7 @@
   flex: 1;
 }
 .contact-card p {
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
   font-size: var(--step--1);
 }
 .contact-card .icon {
@@ -370,6 +361,14 @@
 .contact-card:hover .icon { transform: scale(1.1) rotate(8deg); background: var(--gradient-brand); }
 .contact-card:hover .icon svg { stroke: #fff; }
 .contact-card .icon svg { stroke: var(--text-primary); width: 22px; height: 22px; transition: stroke var(--dur-base); }
+
+/* ---------- Utilidades de texto (sustituyen estilos inline) ---------- */
+.section-eyebrow.eyebrow-tight { margin-bottom: var(--space-2); }
+.section-head--spaced { margin-top: var(--space-8); }
+.edu-title { font-size: var(--step-1); }
+.edu-meta { color: var(--text-muted); }
+.contact-label { color: var(--text-muted); }
+.contact-value { margin: 0; color: var(--text-primary); }
 
 /* scrollbar */
 ::-webkit-scrollbar { width: 10px; }

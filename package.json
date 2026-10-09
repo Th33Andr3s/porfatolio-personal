@@ -1,0 +1,19 @@
+{
+  "name": "porfatolio-personal",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Portafolio personal de Andrés Felipe Olaya Cadena. Sitio estático: este package.json solo sirve para las herramientas de desarrollo.",
+  "scripts": {
+    "serve": "python -m http.server 5173",
+    "check:site": "node scripts/check-site.mjs",
+    "check:html": "html-validate index.html",
+    "check": "npm run check:site && npm run check:html"
+  },
+  "devDependencies": {
+    "html-validate": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

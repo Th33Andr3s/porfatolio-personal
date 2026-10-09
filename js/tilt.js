@@ -14,12 +14,17 @@
       });
     });
     el.addEventListener('mouseleave', () => {
-      el.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+      if (raf) cancelAnimationFrame(raf);
+      raf = null;
+      // se quita el transform en línea: la tarjeta vuelve a su estado normal con la transición de .card
+      el.style.transform = '';
     });
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.card').forEach((el) => attachTilt(el, 6));
+    // Opt-in: solo los elementos con clase .tilt (tarjetas de dominio y de proyecto).
+    // Las tarjetas de texto largo y los enlaces de contacto no se inclinan.
+    document.querySelectorAll('.tilt').forEach((el) => attachTilt(el, 6));
 
     const sim = document.querySelector('.sim-stage');
     const hero3d = document.querySelector('.hero-3d');

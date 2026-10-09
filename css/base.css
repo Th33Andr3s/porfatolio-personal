@@ -4,8 +4,7 @@ html {
   scroll-behavior: smooth;
   color-scheme: dark;
 }
-:root[data-theme='light'] html,
-html:has(:root[data-theme='light']) { color-scheme: light; }
+:root[data-theme='light'] { color-scheme: light; }
 
 body {
   margin: 0;
@@ -66,14 +65,6 @@ code, .mono {
 .container {
   width: min(100% - 2 * var(--space-5), var(--container));
   margin-inline: auto;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px; height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
 }
 
 /* language visibility: JS toggles [lang] attr on body; CSS hides the other */

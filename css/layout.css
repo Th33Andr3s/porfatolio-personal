@@ -10,9 +10,12 @@
 main { position: relative; z-index: 1; }
 
 section {
-  padding: var(--space-9) 0;
+  padding: var(--section-pad) 0;
   position: relative;
+  /* al saltar a un ancla, el contenido queda 1 espacio por debajo del header, sea cual sea el padding */
+  scroll-margin-top: calc(var(--header-h) + var(--space-4) - var(--section-pad));
 }
+.skills-section { --section-pad: var(--space-7); }
 
 .section-head {
   max-width: 640px;
@@ -20,6 +23,8 @@ section {
 }
 .section-eyebrow {
   font-family: var(--font-mono);
+  font-weight: 400;
+  line-height: var(--leading-normal);
   font-size: var(--step--1);
   color: var(--primary-2);
   text-transform: uppercase;
@@ -145,25 +150,6 @@ section {
 .sim-node.n3 { top: 46%; left: 92%; }
 .sim-node.n4 { top: 86%; left: 48%; }
 
-.scroll-cue {
-  position: absolute;
-  bottom: var(--space-6);
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  color: var(--text-muted);
-}
-.scroll-cue .line {
-  width: 1px; height: 32px;
-  background: linear-gradient(var(--primary-2), transparent);
-  animation: float-y 2s var(--ease-in-out) infinite;
-}
-
 /* ---------- About ---------- */
 .about-grid {
   display: grid;
@@ -207,6 +193,12 @@ section {
 .marquee-track span { white-space: nowrap; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 
+/* movimiento reducido: sin ticker; la franja se puede desplazar a mano en lugar de quedar congelada a medias */
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; }
+  .marquee-track { animation: none; }
+}
+
 /* ---------- Contact / footer ---------- */
 .contact-section { text-align: center; }
 .contact-section .section-head { margin-inline: auto; text-align: center; }
@@ -229,25 +221,33 @@ section {
    ========================================================= */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .hero-3d { order: -1; width: 60%; margin-inline: auto; }
+  .hero-3d { order: -1; width: min(60%, 42vh); margin-inline: auto; }
   .about-grid { grid-template-columns: 1fr; }
   .project-card.featured { grid-template-columns: 1fr; }
   .projects-grid, .projects-grid.secondary { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-  :root { --header-h: 64px; }
+  :root { --header-h: 64px; --section-pad: var(--space-8); }
   .nav-links { display: none; }
   .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
   .domain-grid { grid-template-columns: 1fr; }
   .projects-grid, .projects-grid.secondary { grid-template-columns: 1fr; }
-  section { padding: var(--space-8) 0; }
 }
 
 @media (max-width: 480px) {
   .hero-cta { flex-direction: column; align-items: stretch; }
   .btn { justify-content: center; }
   .contact-card { flex-direction: column; text-align: center; }
+
+  /* header compacto para que logo + acciones quepan dentro del gutter */
+  .nav-actions { gap: var(--space-2); }
+  .logo { gap: var(--space-2); font-size: var(--step-0); }
+  .lang-toggle button { padding: 0.5rem 0.6rem; }
+}
+
+@media (max-width: 380px) {
+  .logo-text { display: none; }
 }
 
 /* mobile nav drawer */
@@ -257,12 +257,29 @@ section {
   z-index: 90;
   background: var(--bg);
   transform: translateX(100%);
-  transition: transform var(--dur-slow) var(--ease-in-out);
+  visibility: hidden;
+  transition: transform var(--dur-slow) var(--ease-in-out), visibility 0s linear var(--dur-slow);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: var(--space-6);
 }
-.mobile-nav.is-open { transform: translateX(0); }
+.mobile-nav.is-open {
+  transform: translateX(0);
+  visibility: visible;
+  transition-delay: 0s;
+}
 .mobile-nav a { font-family: var(--font-display); font-size: var(--step-3); }
+
+/* el drawer solo existe en móvil */
+@media (min-width: 769px) {
+  .mobile-nav { display: none; }
+}
+
+/* bloquea el scroll de la página mientras el menú está abierto (solo en móvil,
+   para que nunca pueda quedar bloqueado en escritorio) */
+@media (max-width: 768px) {
+  html.menu-open,
+  html.menu-open body { overflow: hidden; }
+}
