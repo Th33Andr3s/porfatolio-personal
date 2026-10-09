@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "description": "Portafolio personal de Andrés Felipe Olaya Cadena. Sitio estático: este package.json solo sirve para las herramientas de desarrollo.",
+  "description": "Portafolio personal de Andres Felipe Olaya Cadena. Sitio estático: este package.json solo sirve para las herramientas de desarrollo.",
   "scripts": {
     "serve": "python -m http.server 5173",
     "check:site": "node scripts/check-site.mjs",

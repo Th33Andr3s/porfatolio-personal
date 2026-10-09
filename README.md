@@ -1,6 +1,6 @@
 # porfatolio-personal
 
-Portafolio personal de Andrés Felipe Olaya Cadena — publicado con GitHub Pages.
+Portafolio personal de Andres Felipe Olaya Cadena — publicado con GitHub Pages.
 
 ## Stack
 
@@ -83,7 +83,7 @@ Las URLs absolutas de `canonical`, `og:url`, `og:image` y `twitter:image` en `in
 Este repositorio combina tres cosas con condiciones distintas:
 
 1. **Código — licencia MIT** ([LICENSE](LICENSE)). Estructura HTML, hojas de estilo, scripts de `js/` y `scripts/`, y archivos de configuración. Puedes usarlo, copiarlo y modificarlo libremente, conservando el aviso de copyright.
-2. **Contenido personal — todos los derechos reservados** © 2026 Andrés Felipe Olaya Cadena. La licencia MIT **no** cubre:
+2. **Contenido personal — todos los derechos reservados** © 2026 Andres Felipe Olaya Cadena. La licencia MIT **no** cubre:
    - los textos de `index.html` (presentación, experiencia, formación, descripciones de proyectos), incluidos los metadatos y el bloque JSON-LD;
    - el CV (`assets/cv.pdf`) y las imágenes `assets/og-image.png` y `assets/apple-touch-icon.png`;
    - el nombre, los datos de contacto, los enlaces a perfiles y la identidad visual "AO";

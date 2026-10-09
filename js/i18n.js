@@ -1,7 +1,7 @@
 (function () {
   const META_DESCRIPTION = {
-    es: 'Portafolio de Andrés Felipe Olaya Cadena: Ingeniero de Software full-stack especializado en automatización, datos, IA/ML e infraestructura cloud.',
-    en: 'Portfolio of Andrés Felipe Olaya Cadena: full-stack Software Engineer specialized in automation, data, AI/ML and cloud infrastructure.',
+    es: 'Portafolio de Andres Felipe Olaya Cadena: Ingeniero de Software full-stack especializado en automatización, datos, IA/ML e infraestructura cloud.',
+    en: 'Portfolio of Andres Felipe Olaya Cadena: full-stack Software Engineer specialized in automation, data, AI/ML and cloud infrastructure.',
   };
 
   let stored = null;
