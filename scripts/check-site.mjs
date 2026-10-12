@@ -87,7 +87,7 @@ const externalFonts = [['index.html', html], ...cssFiles.map((f) => [f, readFile
 check('fuentes autoalojadas', externalFonts);
 
 // 7. CSP: cada script en línea debe estar permitido por hash
-const csp = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]*)"/)?.[1];
+const csp = html.match(/<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]*)"/)?.[1];
 const cspProblems = [];
 if (!csp) {
   cspProblems.push('falta <meta http-equiv="Content-Security-Policy">');

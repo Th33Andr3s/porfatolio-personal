@@ -249,18 +249,25 @@
   position: relative;
 }
 
-/* Tarjetas de herramientas web: miniatura a sangre en la parte superior */
+/* Gráfico apaisado de app móvil (1024×500): se muestra completo, sin recortar el texto */
+.project-visual--wide { aspect-ratio: 1024 / 500; }
+
+/* Las miniaturas de las tarjetas llenan su recuadro */
 .project-visual img { width: 100%; height: 100%; object-fit: cover; }
-.tool-card .project-visual {
-  margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-5);
-  border: 0;
-  border-bottom: 1px solid var(--border);
-  border-radius: 0;
+.tools-more { display: flex; justify-content: center; margin-top: var(--space-6); }
+
+/* Botón de salida de la sección Proyectos: más grande y con brillo, para que se note entre las tarjetas */
+.btn-lg {
+  padding: 1.15rem 2.6rem;
+  font-size: var(--step-0);
+  box-shadow: var(--glow-primary), 0 14px 34px -12px rgba(79, 124, 255, 0.6);
 }
-/* enlaces siempre al fondo de la tarjeta, aunque el texto sea más corto que el de las vecinas */
-.tool-card { display: flex; flex-direction: column; }
-.tool-card .project-links { margin-top: auto; padding-top: var(--space-4); }
-.tools-more { justify-content: center; margin-top: var(--space-6); }
+.btn-arrow { display: inline-block; transition: transform var(--dur-base) var(--ease-out); }
+.btn-lg:hover .btn-arrow, .btn-lg:focus-visible .btn-arrow { transform: translateX(6px); }
+@media (prefers-reduced-motion: reduce) {
+  .btn-arrow { transition: none; }
+  .btn-lg:hover .btn-arrow, .btn-lg:focus-visible .btn-arrow { transform: none; }
+}
 
 .stack-list {
   display: flex;
@@ -284,8 +291,7 @@
 
 /* h3 de tarjetas: mantienen la escala visual de h4 (la jerarquia semantica no salta niveles) */
 .domain-card h3,
-.timeline-item h3,
-.projects-grid.secondary h3 { font-size: var(--step-2); }
+.timeline-item h3 { font-size: var(--step-2); }
 
 /* ---------- Skill pills / domain grid ---------- */
 .domain-card {
@@ -333,13 +339,6 @@
   margin-bottom: var(--space-3);
 }
 
-/* ---------- Education ---------- */
-.education-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--space-4);
-}
-
 /* ---------- Contact ---------- */
 .contact-grid {
   display: grid;
@@ -377,9 +376,6 @@
 
 /* ---------- Utilidades de texto (sustituyen estilos inline) ---------- */
 .section-eyebrow.eyebrow-tight { margin-bottom: var(--space-2); }
-.section-head--spaced { margin-top: var(--space-8); }
-.edu-title { font-size: var(--step-1); }
-.edu-meta { color: var(--text-muted); }
 .contact-label { color: var(--text-muted); }
 .contact-value { margin: 0; color: var(--text-primary); }
 

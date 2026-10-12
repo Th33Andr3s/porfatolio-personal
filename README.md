@@ -32,7 +32,7 @@ js/
 assets/
   cv.pdf  og-image.png  apple-touch-icon.png
   fonts/                  fuentes WOFF2 y sus licencias OFL
-  img/projects/           miniaturas 800x500 de las herramientas web
+  img/projects/           miniaturas de los trabajos destacados (simulador y app móvil)
 scripts/
   check-site.mjs          comprobaciones estáticas (sin dependencias)
 .github/workflows/ci.yml  validación y Lighthouse en cada push / PR
@@ -67,7 +67,11 @@ Con las herramientas de desarrollo instaladas (`npm install`), `npm run check` a
 - **Texto bilingüe:** escribe siempre los dos `<span data-i18n-es>` y `<span data-i18n-en>`. Para un `aria-label` traducible usa `data-aria-es` y `data-aria-en` junto al `aria-label` inicial.
 - **Estilos:** sin `style=""` en línea (el CSP los bloquea). Usa las clases de `css/components.css`.
 - **Inclinación 3D:** añade la clase `tilt` a la tarjeta que deba inclinarse.
-- **Herramientas web** (sección Proyectos): todos los enlaces van directamente a los sitios publicados en `th33andr3s.github.io/projects/` (no al repositorio de GitHub); el enlace general abre `th33andr3s.github.io/projects/index.html`. Las miniaturas de `assets/img/projects/` son capturas 800×500 (16:10) de cada sitio publicado; si una aplicación cambia mucho, vuelve a capturarla con el mismo tamaño. `Libro de vida` es privado (login con Supabase): su enlace abre solo la pantalla de acceso y usa una ilustración en lugar de una captura.
+- **Botón «Ver todos mis proyectos»** (final de la sección Proyectos): abre el portal `th33andr3s.github.io/projects/index.html`, donde están todas las herramientas web. La sección ya no muestra tarjetas de herramientas: solo los tres trabajos destacados (simulador de centro de distribución, DevLayer y Recordatorio+). Los enlaces del portal van directamente a los sitios publicados, no al repositorio de GitHub.
+
+- **App móvil** (sección Proyectos): la tarjeta «Recordatorio+» enlaza a la ficha de Google Play (`aws.dev.layer.recordatorios`) y usa el gráfico de la ficha (`assets/img/projects/recordatorio-plus.jpg`, 1024×500). Si Google aún no aprobó la app, el enlace muestra «No se ha encontrado»; revisa que abra antes de publicar el cambio.
+- **Simulador de centro de distribución** (sección Proyectos, primer trabajo destacado): enlaza al sitio publicado `th33andr3s.github.io/projects/warehouse_dashboard/`. La miniatura `assets/img/projects/warehouse-simulator.jpg` (800×500) es una captura de la bodega; si el simulador cambia mucho, vuelve a capturarla con el mismo tamaño.
+- **Favicon y marca** (`assets/`): `favicon.svg` (principal), `favicon.ico` (16/32/48), `apple-touch-icon.png` (180, pantalla de inicio de iOS), `icon-192.png` e `icon-512.png` (Android / manifiestos). Es el monograma «AO» en blanco sobre degradado azul `#4f7cff` → violeta `#a855f7`. Para otros proyectos copia esos cinco archivos y enlázalos con `<link rel="icon">`.
 - **Script en línea de `<head>`** (marca `.js` y fija el tema antes del primer pintado): está permitido por hash en el `<meta>` de Content-Security-Policy. Si lo modificas, ejecuta `node scripts/check-site.mjs --print-hash` y actualiza el hash en `script-src`; de lo contrario el navegador lo bloqueará.
 - **Nuevos orígenes externos** (analítica, etc.): añádelos al `<meta http-equiv="Content-Security-Policy">`. Hoy la política solo permite recursos propios.
 - **Fuentes:** para añadir caracteres fuera del subconjunto latino (p. ej. cirílico) hay que descargar el subconjunto correspondiente y declararlo en `css/fonts.css`. La flecha `→` no está en ninguna de las tres y usa la fuente del sistema.

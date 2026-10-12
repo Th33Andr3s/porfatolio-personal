@@ -169,10 +169,6 @@ section {
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-5);
 }
-.projects-grid.secondary {
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: var(--space-5);
-}
 
 /* ---------- Skills strip ---------- */
 .marquee {
@@ -224,7 +220,7 @@ section {
   .hero-3d { order: -1; width: min(60%, 42vh); margin-inline: auto; }
   .about-grid { grid-template-columns: 1fr; }
   .project-card.featured { grid-template-columns: 1fr; }
-  .projects-grid, .projects-grid.secondary { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -232,7 +228,7 @@ section {
   .nav-links { display: none; }
   .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
   .domain-grid { grid-template-columns: 1fr; }
-  .projects-grid, .projects-grid.secondary { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
