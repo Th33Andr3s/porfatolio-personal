@@ -5,7 +5,7 @@
     <!-- CSP: el script en línea de <head> se permite por hash. Si lo editas, ejecuta
      `node scripts/check-site.mjs --print-hash` y actualiza el hash en script-src. -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'sha256-+K6u/XmpRl5wDuQvDNu5b99VsOnbFdsO3CwuM25iKyU='; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+        content="default-src 'self'; script-src 'self' 'sha256-+K6u/XmpRl5wDuQvDNu5b99VsOnbFdsO3CwuM25iKyU='; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://skifmhzhajjnhtuibdte.supabase.co; object-src 'none'; base-uri 'self'; form-action 'none'" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Andres Felipe Olaya Cadena — Software · Data · AI Engineer</title>
     <meta name="description"
@@ -684,6 +684,24 @@
     <footer class="site-footer container">
         <span>© <span id="year"></span> Andres Felipe Olaya Cadena</span>
         <span class="mono">Bogotá, Colombia</span>
+        <details id="privacidad" class="privacy-note">
+            <summary>
+                <span data-i18n-es>Privacidad: cómo cuento las visitas</span><span data-i18n-en>Privacy: how I count visits</span>
+            </summary>
+            <p>
+                <span data-i18n-es>Este sitio cuenta las visitas de forma anónima para saber si el portafolio llega a quien debe. Por cada visita se guarda la hora (redondeada a la hora en punto), la página vista, el dominio desde el que llegaste (por ejemplo linkedin.com), tu país aproximado, el idioma de tu navegador y si usas celular, tableta o computador.</span><span data-i18n-en>This site counts visits anonymously to know whether the portfolio reaches the right people. For each visit it stores the time (rounded to the hour), the page viewed, the domain you came from (for example linkedin.com), your approximate country, your browser language and whether you use a phone, tablet or computer.</span>
+            </p>
+            <p>
+                <span data-i18n-es>No se usan cookies ni se crea ningún identificador tuyo, y no se guarda tu dirección IP: el servidor la recibe, como en cualquier página web, solo para deducir el país, y no la almacena en la base de datos. El proveedor (Supabase) puede conservar unos días registros técnicos de sus servidores. Con estos datos no es posible saber quién eres ni seguirte entre visitas.</span><span data-i18n-en>No cookies are used and no identifier of you is created, and your IP address is not stored: the server receives it, as any website does, only to infer the country, and does not save it in the database. The provider (Supabase) may keep technical server logs for a few days. With this data it is not possible to know who you are or to follow you between visits.</span>
+            </p>
+            <p>
+                <span data-i18n-es>Si tu navegador envía la señal «No rastrear» o Global Privacy Control, tu visita no se cuenta.</span><span data-i18n-en>If your browser sends the “Do Not Track” or Global Privacy Control signal, your visit is not counted.</span>
+            </p>
+            <p>
+                <span data-i18n-es>Los datos se usan solo para estadísticas generales y se borran a los 24 meses. Si tienes dudas, escríbeme a</span><span data-i18n-en>The data is used only for general statistics and is deleted after 24 months. If you have questions, write to</span>
+                <a href="mailto:andresfoc2020@gmail.com">andresfoc2020@gmail.com</a>.
+            </p>
+        </details>
     </footer>
 
     <script src="js/theme.js"></script>
@@ -691,5 +709,6 @@
     <script src="js/neural-bg.js"></script>
     <script src="js/tilt.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/analytics.js"></script>
     </body>
 </html>
