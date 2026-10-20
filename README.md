@@ -99,3 +99,13 @@ Este repositorio combina tres cosas con condiciones distintas:
 Si usas este sitio como plantilla, sustituye todo el contenido personal por el tuyo y elimina el CV, las imágenes y los datos de contacto del autor.
 
 *English summary:* code is MIT-licensed; the personal content (page text, CV, images, name, contact details and branding) is all rights reserved and may not be reused without written permission; the bundled fonts keep their SIL OFL 1.1 license.
+
+## Contador de visitas anónimo
+
+`js/analytics.js` envía cada vista de página a una función de Supabase (`register_visit`, definida en `supabase/visit_counter.sql`) con solo la página, el dominio de origen, el idioma y el ancho de pantalla. No usa cookies, no guarda la IP y no cuenta a quien tenga «No rastrear» o Global Privacy Control, ni en `localhost`, ni a bots. La nota de privacidad está en el pie de `index.html` (`#privacidad`) y debe mantenerse igual a lo que de verdad se guarda: si cambias los datos, cambia también esa nota.
+
+- **Crear la base:** ejecuta `supabase/visit_counter.sql` completo en el SQL Editor del proyecto de Supabase.
+- **Ver los números:** las consultas están al final de ese archivo; se ejecutan en el SQL Editor con tu sesión de dueño.
+- **No contar mis visitas:** abre el portafolio una vez con `?analytics=off` en cada navegador que uses (con `?analytics=on` vuelve a contar).
+- **Seguridad:** las tablas no tienen políticas, así que la API pública no las lee ni las escribe; solo la función valida, limpia y registra, con tope por minuto y por día. En `js/` solo puede haber la clave `anon` (lo comprueba `npm run check:site`); la `service_role` nunca.
+- **Si cambia el dominio del sitio:** actualiza `allowed_origins` en la función y el `connect-src` del CSP.
