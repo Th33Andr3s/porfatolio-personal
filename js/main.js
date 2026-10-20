@@ -59,12 +59,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // Current year
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // Nota de privacidad: se abre sola cuando se llega con el enlace #privacidad
-  const privacyNote = document.getElementById('privacidad');
-  const openPrivacyFromHash = () => {
-    if (privacyNote && location.hash === '#privacidad') privacyNote.open = true;
-  };
-  openPrivacyFromHash();
-  window.addEventListener('hashchange', openPrivacyFromHash);
 });

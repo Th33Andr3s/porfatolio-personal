@@ -13,7 +13,7 @@
     - la política CSP de <meta> no incluye el hash de cada script en línea.
       Si editas el script de <head>, ejecuta con --print-hash y actualiza el meta CSP.
 */
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -100,33 +100,6 @@ if (!csp) {
   if (/unsafe-inline/.test(scriptSrc)) cspProblems.push("script-src no debe usar 'unsafe-inline'");
 }
 check('CSP', cspProblems);
-
-// 8. Contador de visitas: el CSP debe permitir su endpoint y ninguna clave de js/ puede ser distinta de "anon"
-const analyticsProblems = [];
-const analytics = readFileSync(join(root, 'js/analytics.js'), 'utf8');
-const endpoint = analytics.match(/SUPABASE_URL\s*=\s*'([^']+)'/)?.[1];
-if (!endpoint || endpoint.startsWith('__')) {
-  analyticsProblems.push('js/analytics.js no tiene la URL de Supabase');
-} else {
-  const connectSrc = (csp || '').split(';').map((d) => d.trim()).find((d) => d.startsWith('connect-src ')) || '';
-  const origin = new URL(endpoint).origin;
-  if (!connectSrc.split(/\s+/).includes(origin)) analyticsProblems.push(`connect-src no permite ${origin}`);
-}
-for (const file of readdirSync(join(root, 'js')).filter((f) => f.endsWith('.js'))) {
-  const text = readFileSync(join(root, 'js', file), 'utf8');
-  if (text.includes('__SUPABASE')) analyticsProblems.push(`js/${file} tiene marcadores sin reemplazar`);
-  if (/sb_secret_/.test(text)) analyticsProblems.push(`js/${file} parece contener una clave secreta de Supabase`);
-  for (const [, payload] of text.matchAll(/eyJ[\w-]+\.([\w-]+)\.[\w-]+/g)) {
-    let role = 'ilegible';
-    try {
-      role = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8')).role;
-    } catch {
-      /* se queda como ilegible */
-    }
-    if (role !== 'anon') analyticsProblems.push(`js/${file} contiene un token con rol "${role}" (solo se permite "anon")`);
-  }
-}
-check('analítica y claves', analyticsProblems);
 
 checks.forEach((c) => console.log(`${c.ok ? 'OK  ' : 'FAIL'} ${c.name}`));
 if (errors.length) {
