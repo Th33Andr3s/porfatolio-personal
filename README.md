@@ -102,7 +102,7 @@ Si usas este sitio como plantilla, sustituye todo el contenido personal por el t
 
 ## Contador de visitas anónimo
 
-`js/analytics.js` envía cada vista de página a una función de Supabase (`register_visit`, definida en `supabase/visit_counter.sql`) con solo la página, el dominio de origen, el idioma y el ancho de pantalla. No usa cookies, no guarda la IP y no cuenta a quien tenga «No rastrear» o Global Privacy Control, ni en `localhost`, ni a bots. La nota de privacidad está en el pie de `index.html` (`#privacidad`) y debe mantenerse igual a lo que de verdad se guarda: si cambias los datos, cambia también esa nota.
+`js/analytics.js` envía cada vista de página a una función de Supabase (`register_visit`, definida en `supabase/visit_counter.sql`) con solo la página, el dominio de origen, el idioma y el ancho de pantalla. No usa cookies, no guarda la IP y no cuenta a quien tenga «No rastrear» o Global Privacy Control, ni en `localhost`, ni a bots. Solo cuenta una visita tras una interacción real (mover el mouse, tocar, teclado o rueda, con eventos `isTrusted`) y unos 2,5 segundos con la página a la vista; los revisores automáticos de enlaces de las redes sociales y los robots que solo cargan la página no cuentan. La nota de privacidad está en el pie de `index.html` (`#privacidad`) y debe mantenerse igual a lo que de verdad se guarda: si cambias los datos, cambia también esa nota.
 
 - **Crear la base:** ejecuta `supabase/visit_counter.sql` completo en el SQL Editor del proyecto de Supabase.
 - **Ver los números:** las consultas están al final de ese archivo; se ejecutan en el SQL Editor con tu sesión de dueño.

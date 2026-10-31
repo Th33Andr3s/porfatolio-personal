@@ -4,8 +4,9 @@
   Por cada vista de página envía a Supabase (función register_visit, ver supabase/visit_counter.sql) solo:
   la página, el dominio de origen (sin la URL completa), el idioma del navegador y el ancho de pantalla.
   No usa cookies ni almacenamiento para identificar a nadie, no envía la dirección IP como dato (el servidor solo
-  deduce el país) y no cuenta a quien tenga activada la señal "No rastrear". Todo está explicado en la nota de
-  privacidad del pie de página.
+  deduce el país) y no cuenta a quien tenga activada la señal "No rastrear". Solo cuenta una visita cuando hubo una
+  interacción real con la página (ver más abajo), para dejar fuera a los robots y a los revisores automáticos de
+  enlaces. Todo está explicado en la nota de privacidad del pie de página.
 
   La clave anon es pública por diseño: la seguridad la dan la función y las políticas de la base de datos.
   La clave service_role NUNCA debe aparecer aquí (scripts/check-site.mjs lo comprueba).
@@ -89,19 +90,69 @@
     });
   }
 
+  // Una visita solo se cuenta cuando una persona interactúa con la página (mover el mouse, tocar, usar el teclado
+  // o la rueda) y la ha tenido a la vista unos segundos. Los revisores automáticos de enlaces (por ejemplo los que
+  // usan las redes sociales) y los robots cargan la página, no hacen nada de eso y se van, así que no se cuentan.
+  // Solo valen los eventos reales del navegador (isTrusted): un script que los simule no cuenta.
+  const MIN_VISIBLE_MS = 2500;
+  const INTERACTION_EVENTS = ['pointerdown', 'pointermove', 'touchstart', 'keydown', 'wheel'];
+  const LISTENER_OPTIONS = { passive: true, capture: true };
+
   function start() {
     if (!shouldCount()) return;
-    // Una pestaña abierta en segundo plano o precargada no es una visita: se cuenta cuando se ve de verdad.
-    if (document.visibilityState === 'visible') {
-      send();
-      return;
+
+    let interacted = false;
+    let visibleMs = 0; // tiempo acumulado con la pestaña a la vista, sin contar el tramo en curso
+    let visibleSince = document.visibilityState === 'visible' ? performance.now() : null;
+    let timer = 0;
+
+    function visibleTime() {
+      return visibleMs + (visibleSince === null ? 0 : performance.now() - visibleSince);
     }
-    const onVisible = function () {
-      if (document.visibilityState !== 'visible') return;
-      document.removeEventListener('visibilitychange', onVisible);
+
+    function finish() {
+      clearTimeout(timer);
+      INTERACTION_EVENTS.forEach(function (type) {
+        window.removeEventListener(type, onInteraction, LISTENER_OPTIONS);
+      });
+      document.removeEventListener('visibilitychange', onVisibility);
       send();
-    };
-    document.addEventListener('visibilitychange', onVisible);
+    }
+
+    // Cuenta cuando ya hubo interacción y la página lleva a la vista el tiempo mínimo; si falta, espera lo que falte.
+    function check() {
+      if (!interacted || visibleSince === null) return;
+      const missing = MIN_VISIBLE_MS - visibleTime();
+      if (missing <= 0) {
+        finish();
+        return;
+      }
+      clearTimeout(timer);
+      timer = setTimeout(check, missing);
+    }
+
+    function onInteraction(event) {
+      if (!event.isTrusted || interacted) return;
+      interacted = true;
+      check();
+    }
+
+    // Una pestaña en segundo plano o precargada no suma tiempo: se cuenta lo que esté a la vista de verdad.
+    function onVisibility() {
+      if (document.visibilityState === 'visible') {
+        visibleSince = performance.now();
+        check();
+      } else {
+        visibleMs = visibleTime();
+        visibleSince = null;
+        clearTimeout(timer);
+      }
+    }
+
+    INTERACTION_EVENTS.forEach(function (type) {
+      window.addEventListener(type, onInteraction, LISTENER_OPTIONS);
+    });
+    document.addEventListener('visibilitychange', onVisibility);
   }
 
   if (document.readyState === 'complete') start();
